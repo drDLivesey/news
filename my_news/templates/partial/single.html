@@ -1,0 +1,16 @@
+{% extends 'news.html' %}
+{% block head %}
+<title>{{ post.title }}</title>
+<meta name="description" content="Main page"/>
+<meta name="keywords" content="news"/>
+{% endblock %}
+ 
+{% block body %}
+  {% if post.visible %}
+    <h1>{{ post.title }}</h1>
+    <img src="{{ post.image.url }}" alt="">
+    <p>{{ post.content }}</p>
+  {% else %}
+    <p>page not found</p>
+  {% endif %}
+{% endblock %}

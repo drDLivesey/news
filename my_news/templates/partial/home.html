@@ -1,0 +1,33 @@
+{% extends 'news.html' %}
+{% block head %}
+<title>Main</title>
+<meta name="description" content="{{ desc }}"/>
+<meta name="keywords" content="{{ key }}"/>
+{% endblock %}
+ 
+{% block body %}
+  <h1>Main</h1>
+  {% if not posts %}
+  <b>no pages found</b>
+  {% else %}
+    {% for obj in posts %}
+    <div class="container-fluid">
+    <a href="{{ obj.get_absolute_url }}"><b>{{ obj.title }}</b></a>
+    <img src="{{ obj.image.url }}" alt="">
+    <p>{{ obj.description|truncatechars:70 }}</p>
+    <span>{{ obj.timestamp }}</span>
+    <hr>
+    <br><br><br>
+    </div>
+
+    {% endfor %}
+  {% endif %}
+ 
+  {% if posts.has_previous %}
+  <a href="?page={{ posts.previous_page_number }}">Next</a>
+  {% endif %}
+  <span>{{ posts.number }} / {{ posts.num_pages }}</span>
+  {% if posts.has_next %}
+  <a href="?page={{ posts.next_page_number }}" >Back</a>
+  {% endif %}
+{% endblock %}
