@@ -38,11 +38,7 @@
     <p->{{ post.keywords }}</p>
     <span class="time">{{ post.timestamp }}</span>
      <p class="post-meta">
-                        ТЕГИ:{{ tag.name }}
-                            {% for tag in post.tags.all %}
-                            <a href="{% url 'home_tag' tag.slug %}"> {{ tag.name }}</a> |
-                            {% endfor %}
-                    </p>
+                        ТЕГИ:{{ tag.name }}</p>
 
 
 
