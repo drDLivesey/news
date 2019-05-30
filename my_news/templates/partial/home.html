@@ -1,26 +1,34 @@
 {% extends 'news.html' %}
 {% block head %}
-<title>Main</title>
+<title>{{ title }}</title>
 <meta name="description" content="{{ desc }}"/>
 <meta name="keywords" content="{{ key }}"/>
 {% endblock %}
  
 {% block body %}
-  <h1>Main</h1>
+  <h1>News</h1>
   {% if not posts %}
   <b>no pages found</b>
   {% else %}
+
+  <div class="row">
+  	 <div class="col-md-">
+
+  	<ul  class="list-group">
     {% for obj in posts %}
-    <div class="container-fluid">
-    <a href="{{ obj.get_absolute_url }}"><b>{{ obj.title }}</b></a>
-    <img src="{{ obj.image.url }}" alt="">
-    <p>{{ obj.description|truncatechars:70 }}</p>
-    <span>{{ obj.timestamp }}</span>
-    <hr>
-    <br><br><br>
-    </div>
+    <li class="list-group-item"><a href="{{ obj.get_absolute_url }}" class="list-group-item list-group-item-action">    	
+    	<p class="list-group-item-heading"><b>{{ obj.title }}</b> 
+    	<p class="list-group-item-text">{{ obj.description|truncatechars:70 }}
+
+    	</p> 
+    </a>
+	</li>    
 
     {% endfor %}
+    </ul>
+    </div>
+  </div>
+
   {% endif %}
  
   {% if posts.has_previous %}

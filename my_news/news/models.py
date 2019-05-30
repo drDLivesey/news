@@ -1,4 +1,5 @@
 from django.db import models
+from taggit.managers import TaggableManager
 
 
 # Create your models here.
@@ -6,7 +7,7 @@ from django.db import models
 class Post(models.Model):
     title = models.CharField(max_length=120)
     description = models.TextField(default='description')
-    keywords = models.CharField(max_length=120, default='key-words')
+    tags = TaggableManager()
     image = models.FileField(null=True, blank=True)
     content = models.TextField()
     visible = models.BooleanField(default=1)

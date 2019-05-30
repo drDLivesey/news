@@ -3,13 +3,49 @@
 <title>{{ post.title }}</title>
 <meta name="description" content="Main page"/>
 <meta name="keywords" content="news"/>
+
+  <style>
+   .txt {
+    border: 4px; 
+    background: #ffe9bd;
+    padding: 30px; 
+    margin-right : 40%;
+    margin-left : 5%;
+   }
+
+    .time {
+    margin-right : 5%;
+    margin-left : 40%;
+   }
+
+    .img {
+    margin-right : 50%;
+    margin-left : 20%;
+   }
+
+
+
+  </style>
+
+
 {% endblock %}
  
 {% block body %}
   {% if post.visible %}
     <h1>{{ post.title }}</h1>
-    <img src="{{ post.image.url }}" alt="">
-    <p>{{ post.content }}</p>
+    <img class="img" src="{{ post.image.url }}" alt="">
+    <p class="txt">{{ post.content }}</p>
+    <p->{{ post.keywords }}</p>
+    <span class="time">{{ post.timestamp }}</span>
+     <p class="post-meta">
+                        ТЕГИ:{{ tag.name }}
+                            {% for tag in post.tags.all %}
+                            <a href="{% url 'home_tag' tag.slug %}"> {{ tag.name }}</a> |
+                            {% endfor %}
+                    </p>
+
+
+
   {% else %}
     <p>page not found</p>
   {% endif %}
