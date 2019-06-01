@@ -4,45 +4,55 @@
 <meta name="description" content="Main page"/>
 <meta name="keywords" content="news"/>
 
-  <style>
-   .txt {
-    border: 4px; 
-    background: #ffe9bd;
-    padding: 30px; 
-    margin-right : 40%;
-    margin-left : 5%;
-   }
+<style>
+	.txt {
+		border: 4px; 
+		background: #ffe9bd;
+		padding: 30px; 
+		margin-right : 40%;
+		margin-left : 5%;
+	}
 
-    .time {
-    margin-right : 5%;
-    margin-left : 40%;
-   }
+	.time {
+		margin-right : 5%;
+		margin-left : 40%;
+	}
 
-    .img {
-    margin-right : 50%;
-    margin-left : 20%;
-   }
+	.img {
+		margin-right : 50%;
+		margin-left : 20%;
+	}
 
 
 
-  </style>
+</style>
 
 
 {% endblock %}
- 
+
 {% block body %}
-  {% if post.visible %}
-    <h1>{{ post.title }}</h1>
-    <img class="img" src="{{ post.image.url }}" alt="">
-    <p class="txt">{{ post.content }}</p>
-    <p->{{ post.keywords }}</p>
-    <span class="time">{{ post.timestamp }}</span>
-     <p class="post-meta">
-                        ТЕГИ:{{ tag.name }}</p>
+{% if post.visible %}
+<h1>{{ post.title }}</h1>
+<img class="img" src="{{ post.image.url }}" alt="">
+<p class="txt">{{ post.content }}</p>
+<span class="time">{{ post.timestamp }}</span>
+<p class="post-meta">
+	{% block title %}
+	<h1 class="mb-5">Tags: </h1>
+
+	{% for tag in post.tag.all %}
+	<h3><a href="{{ url }}tag/{{ tag.title }}">{{ tag.title }}</a></h3>
+	{% endfor %}
+
+
+	{% endblock %}
+
+
+</p>
 
 
 
-  {% else %}
-    <p>page not found</p>
-  {% endif %}
+{% else %}
+<p>page not found</p>
+{% endif %}
 {% endblock %}

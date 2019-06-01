@@ -1,14 +1,14 @@
 from django.db import models
-from taggit.managers import TaggableManager
-
 
 # Create your models here.
 
+
 class Post(models.Model):
     title = models.CharField(max_length=120)
+    #slug = models.SlugField(max_length=128, unique=True)
     description = models.TextField(default='description')
-    tags = TaggableManager()
-    image = models.FileField(null=True, blank=True)
+    tag = models.ManyToManyField('Tag')
+    image = models.FileField(null=True, blank=False)
     content = models.TextField()
     visible = models.BooleanField(default=1)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
@@ -25,3 +25,12 @@ class Post(models.Model):
 
     class Meta:
         ordering = ["-id", "-timestamp"]
+
+
+class Tag(models.Model):
+    title = models.CharField(max_length=128)
+    #title = models.SlugField(max_length=128, unique=True)
+
+    def __str__(self):
+        return '{}'.format(self.title)
+

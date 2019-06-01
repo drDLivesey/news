@@ -1,9 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from taggit.models import Tag
-from news.models import Post
+from django.contrib import admin
+from news.models import Post, Tag
 
+URL = 'http://127.0.0.1:8000/'
 
 def home(request, tag_slug=None):
 
@@ -16,7 +17,6 @@ def home(request, tag_slug=None):
     paginator = Paginator(post_list, 10)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
-
 
     context = {
         "posts": posts,
@@ -32,6 +32,17 @@ def single(request, id=None):
 
     context = {
         "post": post,
+        "url": URL,
     }
+    print(admin.site.urls)
     return render(request, "partial/single.html", context)
 
+
+def tags_list(request, tag=None):
+    posts = []
+    for post in Post.objects.all():
+        for post_tag in post.tag.all():
+            if tag == str(post_tag):
+                posts.append(post)
+
+    return render(request, "partial/tags_list.html", context={'posts': posts, 'url': URL})
